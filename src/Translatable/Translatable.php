@@ -231,7 +231,9 @@ trait Translatable
      */
     public function save(array $options = [])
     {
+        $this->fireModelEvent('saving', false);
         if ($this->exists) {
+            $this->fireModelEvent('updating', false);
             if (count($this->getDirty()) > 0) {
                 // If $this->exists and dirty, parent::save() has to return true. If not,
                 // an error has occurred. Therefore we shouldn't save the translations.
